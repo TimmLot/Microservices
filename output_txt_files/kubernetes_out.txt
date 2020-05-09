@@ -1,1 +1,14 @@
-<paste log output from Kubernetes-mediated prediction, here>
+#as my development environment is cloud9, I installed minikube on Windows10:
+PS C:\Users\timml> kubectl port-forward mlapp 8000:80
+Forwarding from 127.0.0.1:8000 -> 80
+Forwarding from [::1]:8000 -> 80
+Handling connection for 8000
+
+#the script runs in an ubuntu console:
+timm@DESKTOP-E5D2IAE:/home/Microservices$ ./make_prediction.sh
+Port: 8000
+{
+  "prediction": [
+    20.35373177134412
+  ]
+}
