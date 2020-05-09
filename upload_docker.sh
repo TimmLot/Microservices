@@ -5,11 +5,13 @@
 
 # Step 1:
 # Create dockerpath
-# dockerpath=<your docker ID/path>
+dockerpath=timmlot/mlapp
 
 # Step 2:  
 # Authenticate & tag
+docker login
 echo "Docker ID and Image: $dockerpath"
+docker tag mlapp $dockerpath:latest
 
 # Step 3:
-# Push image to a docker repository
+docker push timmlot/mlapp
