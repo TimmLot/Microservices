@@ -1,14 +1,46 @@
-#as my development environment is cloud9, I installed minikube on Windows10:
-PS C:\Users\timml> kubectl port-forward mlapp 8000:80
+timml@DESKTOP-E5D2IAE MINGW64 ~/Microservices (master)
+$ ./run_kubernetes.sh
+Error from server (AlreadyExists): pods "mlapp" already exists
+NAME                     READY   STATUS    RESTARTS   AGE
+api21-76d649cff9-5hhpz   1/1     Running   2          17h
+mlapp                    1/1     Running   1          10h
 Forwarding from 127.0.0.1:8000 -> 80
 Forwarding from [::1]:8000 -> 80
 Handling connection for 8000
 
-#the script runs in an ubuntu console:
-timm@DESKTOP-E5D2IAE:/home/Microservices$ ./make_prediction.sh
+---
+
+timml@DESKTOP-E5D2IAE MINGW64 ~/Microservices (master)
+$ ./make_prediction.sh
 Port: 8000
-{
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   260  100    48  100   212    126    559 --:--:-- --:--:-- --:--:--   687{
   "prediction": [
     20.35373177134412
   ]
 }
+
+---
+
+timml@DESKTOP-E5D2IAE MINGW64 ~/Microservices (master)
+$ kubectl logs mlapp
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 280-220-367
+[2020-05-10 11:05:47,293] INFO in app: JSON payload:
+{'CHAS': {'0': 0}, 'RM': {'0': 6.575}, 'TAX': {'0': 296.0}, 'PTRATIO': {'0': 15.3}, 'B': {'0': 396.9}, 'LSTAT': {'0': 4.98}}
+[2020-05-10 11:05:47,416] INFO in app: Inference payload DataFrame:
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2020-05-10 11:05:47,445] INFO in app: Scaling Payload:
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2020-05-10 11:05:47,457] INFO in app: output prediction: [20.35373177134412]
+127.0.0.1 - - [10/May/2020 11:05:47] "POST /predict HTTP/1.1" 200 -
